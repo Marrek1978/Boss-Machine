@@ -23,9 +23,12 @@ import Minion from './components/Minion';
 
 const appEnter = nextRouterState => {
   Promise.all([
-    axios.get('http://localhost:4001/api/minions'),
-    axios.get('http://localhost:4001/api/ideas'),
-    axios.get('http://localhost:4001/api/meetings'),
+    // axios.get('http://localhost:4001/api/minions'),
+    // axios.get('http://localhost:4001/api/ideas'),
+    // axios.get('http://localhost:4001/api/meetings'),
+    axios.get('api/minions'),
+    axios.get('api/ideas'),
+    axios.get('api/meetings'),
   ])
   .then(([minionsResponse,ideasResponse, meetingsResponse]) => {
     return [minionsResponse.data, ideasResponse.data, meetingsResponse.data];
@@ -41,14 +44,16 @@ const appEnter = nextRouterState => {
 const singleMinionEnter = nextRouterState => {
   store.dispatch(resetEditingState());
   const id = nextRouterState.params.id;
-  axios.get(`http://localhost:4001/api/minions/${id}`)
+  // axios.get(`http://localhost:4001/api/minions/${id}`)
+  axios.get(`api/minions/${id}`)
   .then(res => res.data)
   .then(minion => {
     store.dispatch(setSelectedMinion(minion));
   })
   .catch(console.error.bind(console));
 
-  axios.get(`http://localhost:4001/api/minions/${id}/work`)
+  axios.get(`api/minions/${id}/work`)
+  // axios.get(`http://localhost:4001/api/minions/${id}/work`)
   .then(res => res.data)
   .then(work => {
     store.dispatch(setWork(work));
@@ -58,7 +63,8 @@ const singleMinionEnter = nextRouterState => {
 
 const singleIdeaEnter = nextRouterState => {
   const id = nextRouterState.params.id;
-  axios.get(`http://localhost:4001/api/ideas/${id}`)
+  axios.get(`api/ideas/${id}`)
+  // axios.get(`http://localhost:4001/api/ideas/${id}`)
   .then(res => res.data)
   .then(idea => {
     store.dispatch(setSelectedIdea(idea));
