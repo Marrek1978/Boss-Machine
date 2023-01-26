@@ -18,11 +18,7 @@ minionsWorkRouter.post('/', (req, res, next) => {
     res.status(201).send(work);
 })
 
-// PUT /api/minions/:minionId/work/:workId to update a single work by id.
 minionsWorkRouter.put('/:workId', (req, res, next) => {
-  //is minion id the same
-  console.log('req.params.minionId', req.id);
-  console.log('req.body.minionId', req.body.minionId);
   if(req.id !== req.body.minionId){
     res.status(400).send('Bad Request');
   }else{
